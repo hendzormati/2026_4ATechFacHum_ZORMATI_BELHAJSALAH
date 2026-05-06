@@ -1,0 +1,29 @@
+# Données de session 
+data/
+reports/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+.env
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+!plux.pyd
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
