@@ -1,4 +1,4 @@
-# PRD — IQ Overload
+# PRD  IQ Overload
 
 ## Application Name
 **IQ Overload**
@@ -11,11 +11,11 @@ L'application croise des données physiologiques multi-capteurs avec des
 performances cognitives pour produire un rapport analytique objectif.
 
 ## Target Users
-Binôme étudiant en contexte de labo. Un seul participant par session de test.
+Binôme étudiant, un seul participant par session de test.
 
 ## End Users
 - Les deux membres du binôme (développeurs et sujets de test)
-- Potentiellement : démo devant le cours
+- démo à realiser à la fin
 
 ---
 
@@ -26,7 +26,7 @@ La Phase 2 ne commence qu'une fois la Phase 1 entièrement validée.
 
 ---
 
-# PHASE 1 — Acquisition, Signal Processing & Reporting
+# PHASE 1  Acquisition, Signal Processing & Reporting
 
 ## Objectif de la Phase 1
 Construire le socle technique invisible à l'utilisateur final :
@@ -36,30 +36,25 @@ et génération du rapport analytique.
 
 ---
 
-## P1 — Étape 1 : Connexion continue
+## P1  Étape 1 : Connexion continue
 
 ### Contexte
-Actuellement main.py et plux.pyd testent une connexion de 20 secondes
+Actuellement bitalino_reader.py et plux.pyd testent une connexion de 20 secondes
 puis ferment. Ce comportement doit être remplacé par une connexion
 persistante qui dure toute la session de l'application.
-
-### État initial du repo
-- `main.py` — test de connexion 20 secondes, ne pas modifier
-- `plux.pyd` — librairie binaire BITalino, ne pas modifier
-- `src/bitalino_reader.py` — à créer, remplace la logique de main.py
 
 ### Requirements P1-E1
 - La connexion BITalino s'établit au lancement de l'application
 - Elle reste active jusqu'à la fermeture explicite du programme
 - La connexion tourne dans un thread dédié séparé du thread principal
 - Adresse MAC configurable dans un fichier `config.py`
-- Fréquence d'acquisition : 1000 Hz
+- Fréquence d'acquisition : 100 Hz
 - Le niveau de batterie est affiché au démarrage
 - En cas de déconnexion : tentative de reconnexion automatique x3
   avant d'afficher une erreur
 
 ### Fichiers concernés
-- `src/bitalino_reader.py` (nouveau)
+- `src/bitalino_reader.py`
 - `src/config.py` (nouveau)
 
 ### Success Criteria E1
@@ -69,24 +64,25 @@ persistante qui dure toute la session de l'application.
 
 ---
 
-## P1 — Étape 2 : Affichage dynamique des 6 capteurs simultanément
+## P1  Étape 2 : Affichage dynamique des 6 capteurs simultanément
 
 ### Contexte
 Une fois la connexion stable, afficher en temps réel les signaux
 de tous les capteurs actifs dans des graphiques dynamiques simultanés.
 
 ### Capteurs et ports BITalino
-| Capteur | Port | Câble      | Ce qu'on mesure                          |
-|---------|------|------------|------------------------------------------|
+| Capteur | Port | Câble      | Ce qu'on mesure                              |
+|---------|------|------------|----------------------------------------------|
 | EDA     | A2   | 2-leads    | Conductance cutanée, activation émotionnelle |
-| EMG     | A1   | 3-leads    | Contraction musculaire                   |
-| ACC     | A3   | intégré    | Micro-mouvements, agitation              |
-| FSR     | A4   | direct     | Pression appliquée sur le capteur        |
-| ECG     | A5   | 3-leads    | Rythme cardiaque                         |
-| PPG     | A6   | 3-leads    | Variabilité cardiaque optique            |
+| EMG     | A1   | 3-leads    | Contraction musculaire                       |
+| ACC     | A3   | intégré    | Micro-mouvements, agitation                  |
+| FSR     | A4   | direct     | Pression appliquée, bouton de réponse        |
+| PPG     | A6   | 3-leads    | Rythme cardiaque optique, HRV                |
 
+- Capteurs actifs : EDA (A2), EMG (A1), ACC (A3), FSR (A4), PPG (A6)
+- Ports BITalino : [1, 2, 3, 4, 6]
 ### Requirements P1-E2
-- Affichage de 6 graphiques simultanés dans une même fenêtre
+- Affichage de 5 graphiques simultanés dans une même fenêtre
 - Chaque graphique affiche :
   - Le nom du capteur (ex: "EDA — Activité électrodermale")
   - Le signal brut en temps réel sous forme de courbe
@@ -110,7 +106,7 @@ de tous les capteurs actifs dans des graphiques dynamiques simultanés.
 
 ---
 
-## P1 — Étape 3 : Calibration et valeurs de référence
+## P1  Étape 3 : Calibration et valeurs de référence
 
 ### Contexte
 Une fois l'affichage validé, lancer une session de calibration de
@@ -128,7 +124,7 @@ toute l'analyse ultérieure.
 #### Valeurs calculées par capteur
 
 **EDA**
-- Moyenne baseline (SCL — Skin Conductance Level)
+- Moyenne baseline (SCL  Skin Conductance Level)
 - Écart-type baseline
 - Seuil d'activation = moyenne + 2 × écart-type
 - Seuil de stress élevé = moyenne + 3 × écart-type
@@ -148,11 +144,6 @@ toute l'analyse ultérieure.
 - Valeur au repos (devrait être proche de 0)
 - Seuil de détection d'appui = repos + offset fixe (20 unités)
 
-**ECG**
-- Fréquence cardiaque de base (BPM)
-- Intervalle R-R moyen
-- Seuil tachycardie = BPM baseline × 1.2
-
 **PPG**
 - HRV (Heart Rate Variability) baseline
 - BPM optique de référence
@@ -168,19 +159,17 @@ toute l'analyse ultérieure.
 - `src/sensors/emg_processor.py` (nouveau)
 - `src/sensors/acc_processor.py` (nouveau)
 - `src/sensors/fsr_processor.py` (nouveau)
-- `src/sensors/ecg_processor.py` (nouveau)
 - `src/sensors/ppg_processor.py` (nouveau)
 
 ### Success Criteria E3
 - Les valeurs de référence sont cohérentes avec ce qu'on observe
   sur les courbes pendant le repos
 - Le fichier JSON est généré et lisible
-- Les seuils EMG permettent de distinguer repos / contraction légère
-  / contraction forte lors d'un test manuel
+- Les seuils EMG permettent de distinguer repos / contraction légère / contraction forte lors d'un test manuel
 
 ---
 
-## P1 — Étape 4 : Analyse charge cognitive et mémoire de travail
+## P1  Étape 4 : Analyse charge cognitive et mémoire de travail
 
 ### Contexte
 Définir les indicateurs et algorithmes qui permettent de détecter
@@ -207,7 +196,7 @@ acc_index = magnitude_actuelle / magnitude_baseline
 - Micro-mouvements involontaires = agitation cognitive
 - Augmente quand le cerveau est surchargé
 
-#### HRV (variabilité cardiaque — indicateur clé)
+#### HRV (variabilité cardiaque  indicateur clé)
 hrv_drop = (hrv_baseline - hrv_actuel) / hrv_baseline × 100
 - Diminution de HRV = augmentation charge mentale
 - > 20% de drop = charge significative
@@ -246,7 +235,7 @@ CCI = (eda_index × 0.35) + (hrv_drop × 0.35) +
 
 ---
 
-## P1 — Étape 5 : Reporting
+## P1  Étape 5 : Reporting
 
 ### Contexte
 Générer un rapport complet à la fin d'une session qui croise
@@ -277,8 +266,8 @@ les données physiologiques avec les performances.
    le profil de charge cognitive du participant
 
 #### Format de sortie
-- `reports/report_YYYYMMDD_HHMMSS.html` — rapport complet
-- `data/session_YYYYMMDD_HHMMSS/` — données brutes CSV + JSON
+- `reports/report_YYYYMMDD_HHMMSS.html`  rapport complet
+- `data/session_YYYYMMDD_HHMMSS/`  données brutes CSV + JSON
 
 ### Fichiers concernés
 - `src/report/reporter.py` (nouveau)
@@ -291,7 +280,7 @@ les données physiologiques avec les performances.
 
 ---
 
-## P1 — Validation Globale Phase 1
+## P1  Validation Globale Phase 1
 
 ### Critères de passage à la Phase 2
 - [ ] Connexion stable 10 minutes sans interruption
@@ -303,7 +292,7 @@ les données physiologiques avec les performances.
 
 ---
 
-# PHASE 2 — Interface Utilisateur (IQ Overload Experience)
+# PHASE 2  Interface Utilisateur (IQ Overload Experience)
 
 ## Statut
 **À définir après validation complète de la Phase 1.**
@@ -326,7 +315,7 @@ une fois la Phase 1 validée.
 
 ## Stack technique
 - Python 3.10
-- BITalino via librairie plux (main.py + plux.pyd existants)
+- BITalino via librairie plux (bitalino_reader.py + plux.pyd existants)
 - UI Phase 1 : matplotlib (affichage signaux)
 - UI Phase 2 : Tkinter
 - Données : pandas, numpy
@@ -334,7 +323,7 @@ une fois la Phase 1 validée.
 - Rapport : HTML/CSS pur (pas de dépendance externe)
 
 ## Architecture
-- `main.py` et `plux.pyd` : intouchables
+- `bitalino_reader.py` et `plux.pyd` : intouchables
 - Point d'entrée Phase 1 : `python src/app.py`
 - Acquisition capteurs : toujours dans un thread séparé
 - Jamais de blocking call dans le thread UI
@@ -348,8 +337,6 @@ une fois la Phase 1 validée.
 
 # Structure du repo cible (fin Phase 1)
 /
-├── main.py                          ← intouchable
-├── plux.pyd                         ← intouchable
 ├── PRD.md
 ├── SPECS.md                         ← généré après PRD
 ├── AGENTS.md
@@ -358,6 +345,7 @@ une fois la Phase 1 validée.
 │   ├── app.py                       ← point d'entrée
 │   ├── config.py                    ← adresse MAC, constantes
 │   ├── bitalino_reader.py           ← connexion continue + thread
+│   ├── plux.pyd                     ← intouchable
 │   ├── visualizer.py                ← affichage 6 courbes
 │   ├── calibration.py               ← baseline 20 secondes
 │   ├── cognitive_load.py            ← calcul CCI + bascule
@@ -366,7 +354,6 @@ une fois la Phase 1 validée.
 │   │   ├── emg_processor.py
 │   │   ├── acc_processor.py
 │   │   ├── fsr_processor.py
-│   │   ├── ecg_processor.py
 │   │   ├── ppg_processor.py
 │   │   └── hrv_analyzer.py
 │   └── report/
