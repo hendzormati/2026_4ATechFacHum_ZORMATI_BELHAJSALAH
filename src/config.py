@@ -90,11 +90,14 @@ CCI_WEIGHTS: Dict[str, float] = {
 # SENSOR THRESHOLDS (baseline-relative)
 # ============================================================================
 
+EDA_THRESHOLD_NORMAL: float = 1.0
+"""EDA normal threshold: within 1 std from baseline."""
+
 EDA_THRESHOLD_MODERATE: float = 2.0
-"""EDA stress level threshold: mean + 2*std."""
+"""EDA moderate stress threshold: mean + 2*std."""
 
 EDA_THRESHOLD_HIGH: float = 3.0
-"""EDA high stress threshold: mean + 3*std."""
+"""EDA high stress threshold: mean + 3*std (overload beyond this)."""
 
 EMG_THRESHOLD_LIGHT: float = 3.0
 """EMG light contraction threshold: rms_baseline * 3."""
