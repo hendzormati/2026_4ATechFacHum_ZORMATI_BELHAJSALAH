@@ -146,7 +146,7 @@ Manual validation of connection with actual BITalino hardware.
 
 ## Phase 1 - Étape 2: Visualizer
 
-### T2.1: Create `src/visualizer.py` - PlotData dataclass 🔴
+### T2.1: Create `src/visualizer.py` - PlotData dataclass 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 30 minutes  
 **Dependencies**: T1.1
@@ -155,20 +155,20 @@ Manual validation of connection with actual BITalino hardware.
 Create PlotData dataclass for storing rolling window data.
 
 **Acceptance Criteria:**
-- [ ] `@dataclass PlotData` with timestamps, values, max_size
-- [ ] Type hints: `timestamps: Deque[float]`, `values: Deque[float]`, `max_size: int`
-- [ ] Docstring
+- [x] `@dataclass PlotData` with timestamps, values, max_size
+- [x] Type hints: `timestamps: Deque[float]`, `values: Deque[float]`, `max_size: int`
+- [x] Docstring
 
 **Files to Create:**
 - `src/visualizer.py`
 
 **Testing:**
-- [ ] Can instantiate PlotData
-- [ ] Deque behavior correct
+- [x] Can instantiate PlotData
+- [x] Deque behavior correct
 
 ---
 
-### T2.2: Create `src/visualizer.py` - SensorVisualizer class 🔴
+### T2.2: Create `src/visualizer.py` - SensorVisualizer class 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 4 hours  
 **Dependencies**: T2.1
@@ -177,32 +177,32 @@ Create PlotData dataclass for storing rolling window data.
 Implement SensorVisualizer class for real-time plotting of 5 sensors.
 
 **Acceptance Criteria:**
-- [ ] All attributes from SPECS.md section 2.3
-- [ ] `__init__()` initializes empty plot_data for 5 sensors
-- [ ] `setup_plots()` creates 5 subplots with matplotlib
-- [ ] Each subplot has correct title from `config.PLOT_NAMES`
-- [ ] `update_data()` adds to rolling window, removes old data
-- [ ] `update_plots()` refreshes all lines
-- [ ] `start()` uses matplotlib FuncAnimation
-- [ ] `close()` closes figure
-- [ ] `_create_subplot()` helper for subplot creation
-- [ ] `_animation_callback()` for FuncAnimation
-- [ ] Window size = `config.PLOT_WINDOW_DURATION` seconds
-- [ ] Type hints on all methods
-- [ ] Docstrings on all public methods
+- [x] All attributes from SPECS.md section 2.3
+- [x] `__init__()` initializes empty plot_data for 5 sensors
+- [x] `setup_plots()` creates 5 subplots with matplotlib
+- [x] Each subplot has correct title from `config.PLOT_NAMES`
+- [x] `update_data()` adds to rolling window, removes old data
+- [x] `update_plots()` refreshes all lines
+- [x] `start()` uses matplotlib FuncAnimation
+- [x] `close()` closes figure
+- [x] `_create_subplot()` helper for subplot creation
+- [x] `_animation_callback()` for FuncAnimation
+- [x] Window size = `config.PLOT_WINDOW_DURATION` seconds
+- [x] Type hints on all methods
+- [x] Docstrings on all public methods
 
 **Files to Modify:**
 - `src/visualizer.py`
 
 **Testing:**
-- [ ] Unit test: `test_visualizer_init()`
-- [ ] Unit test: `test_update_data_adds_to_window()`
-- [ ] Unit test: `test_window_size_respected()`
-- [ ] Unit test: `test_setup_plots_creates_subplots()`
+- [x] Unit test: `test_visualizer_init()`
+- [x] Unit test: `test_update_data_adds_to_window()`
+- [x] Unit test: `test_window_size_respected()`
+- [x] Unit test: `test_setup_plots_creates_subplots()`
 
 ---
 
-### T2.3: Create `tests/test_visualizer.py` 🔴
+### T2.3: Create `tests/test_visualizer.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 1.5 hours  
 **Dependencies**: T2.2
@@ -211,22 +211,22 @@ Implement SensorVisualizer class for real-time plotting of 5 sensors.
 Unit tests for visualizer focusing on data management logic.
 
 **Acceptance Criteria:**
-- [ ] Test initialization
-- [ ] Test data addition to rolling window
-- [ ] Test window size constraint
-- [ ] Test setup_plots creates correct number of subplots
-- [ ] All tests pass
-- [ ] Coverage > 70% (visualization logic hard to test)
+- [x] Test initialization
+- [x] Test data addition to rolling window
+- [x] Test window size constraint
+- [x] Test setup_plots creates correct number of subplots
+- [x] All tests pass
+- [x] Coverage > 70% (visualization logic hard to test)
 
 **Files to Create:**
 - `tests/test_visualizer.py`
 
 **Testing:**
-- [ ] `pytest tests/test_visualizer.py -v` passes
+- [x] `pytest tests/test_visualizer.py -v` passes
 
 ---
 
-### T2.4: Integration Test - Visualizer with Mock Data 🔴
+### T2.4: Integration Test - Visualizer with Mock Data 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 1 hour  
 **Dependencies**: T2.2, T2.3
@@ -235,22 +235,22 @@ Unit tests for visualizer focusing on data management logic.
 Create integration test script to display visualizer with synthetic data.
 
 **Acceptance Criteria:**
-- [ ] Script generates synthetic data for 5 sensors
-- [ ] Data pumped into visualizer at 100 Hz
-- [ ] Plots update smoothly
-- [ ] No lag or freezing
-- [ ] Can run for 60 seconds minimum
+- [x] Script generates synthetic data for 5 sensors
+- [x] Data pumped into visualizer at 100 Hz
+- [x] Plots update smoothly
+- [x] No lag or freezing
+- [x] Can run for 60 seconds minimum
 
 **Files to Create:**
 - `tests/manual/test_visualizer_integration.py`
 
 **Testing:**
-- [ ] Visual inspection: 5 plots display correctly
-- [ ] Visual inspection: data scrolls smoothly
+- [x] Visual inspection: 5 plots display correctly
+- [x] Visual inspection: data scrolls smoothly
 
 ---
 
-### T2.5: Manual Test - Live Data Visualization 🔴
+### T2.5: Manual Test - Live Data Visualization 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 30 minutes  
 **Dependencies**: T1.5, T2.4
@@ -259,21 +259,21 @@ Create integration test script to display visualizer with synthetic data.
 Connect visualizer to actual BITalino and display live sensor data.
 
 **Acceptance Criteria:**
-- [ ] All 5 sensor plots display simultaneously
-- [ ] EMG reacts to muscle contraction within 200ms
-- [ ] FSR reacts to button press immediately
-- [ ] No data loss during visualization
-- [ ] Runs for 5 minutes without lag
+- [x] All 5 sensor plots display simultaneously
+- [x] EMG reacts to muscle contraction within 200ms
+- [x] FSR reacts to button press immediately
+- [x] No data loss during visualization
+- [x] Runs for 5 minutes without lag
 
 **Testing:**
-- [ ] Manual validation with physical actions
-- [ ] Observer confirms reactivity
+- [x] Manual validation with physical actions
+- [x] Observer confirms reactivity
 
 ---
 
 ## Phase 1 - Étape 3: Calibration
 
-### T3.1: Create `src/sensors/` directory and `__init__.py` 🔴
+### T3.1: Create `src/sensors/` directory and `__init__.py` 🟢
 **Priority**: P0 (Critical)  
 **Estimated Time**: 5 minutes  
 **Dependencies**: None
@@ -282,15 +282,15 @@ Connect visualizer to actual BITalino and display live sensor data.
 Create sensors package directory.
 
 **Acceptance Criteria:**
-- [ ] Directory `src/sensors/` exists
-- [ ] `src/sensors/__init__.py` created (can be empty)
+- [x] Directory `src/sensors/` exists
+- [x] `src/sensors/__init__.py` created (can be empty)
 
 **Files to Create:**
 - `src/sensors/__init__.py`
 
 ---
 
-### T3.2: Create `src/sensors/eda_processor.py` 🔴
+### T3.2: Create `src/sensors/eda_processor.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 1.5 hours  
 **Dependencies**: T3.1, T1.1
@@ -299,26 +299,26 @@ Create sensors package directory.
 Implement EDAProcessor class as per SPECS.md section 2.5.
 
 **Acceptance Criteria:**
-- [ ] `EDAProcessor` class with baseline_mean, baseline_std
-- [ ] `_smoothing_window` deque with maxlen=10
-- [ ] `process_raw()` applies moving average filter
-- [ ] `compute_eda_index()` uses formula: (current - mean) / std
-- [ ] `classify_level()` returns "normal", "moderate", "high", "overload"
-- [ ] Type hints on all methods
-- [ ] Docstrings on all methods
+- [x] `EDAProcessor` class with baseline_mean, baseline_std
+- [x] `_smoothing_window` deque with maxlen=10
+- [x] `process_raw()` applies moving average filter
+- [x] `compute_eda_index()` uses formula: (current - mean) / std
+- [x] `classify_level()` returns "normal", "moderate", "high", "overload"
+- [x] Type hints on all methods
+- [x] Docstrings on all methods
 
 **Files to Create:**
 - `src/sensors/eda_processor.py`
 
 **Testing:**
-- [ ] Unit test: `test_eda_processor_init()`
-- [ ] Unit test: `test_process_raw_smoothing()`
-- [ ] Unit test: `test_compute_eda_index()`
-- [ ] Unit test: `test_classify_level()`
+- [x] Unit test: `test_eda_processor_init()`
+- [x] Unit test: `test_process_raw_smoothing()`
+- [x] Unit test: `test_compute_eda_index()`
+- [x] Unit test: `test_classify_level()`
 
 ---
 
-### T3.3: Create `src/sensors/emg_processor.py` 🔴
+### T3.3: Create `src/sensors/emg_processor.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 2 hours  
 **Dependencies**: T3.1, T1.1
@@ -327,28 +327,28 @@ Implement EDAProcessor class as per SPECS.md section 2.5.
 Implement EMGProcessor class as per SPECS.md section 2.6.
 
 **Acceptance Criteria:**
-- [ ] `EMGProcessor` class with rms_baseline
-- [ ] `_window` deque with maxlen=50 (0.5s at 100Hz)
-- [ ] `process_raw()` returns rectified EMG value
-- [ ] `compute_rms()` calculates RMS over window
-- [ ] `compute_tension_index()` = current_rms / rms_baseline
-- [ ] `detect_contraction()` returns "rest", "light", "strong"
-- [ ] Type hints on all methods
-- [ ] Docstrings on all methods
+- [x] `EMGProcessor` class with rms_baseline
+- [x] `_window` deque with maxlen=50 (0.5s at 100Hz)
+- [x] `process_raw()` returns rectified EMG value
+- [x] `compute_rms()` calculates RMS over window
+- [x] `compute_tension_index()` = current_rms / rms_baseline
+- [x] `detect_contraction()` returns "rest", "light", "strong"
+- [x] Type hints on all methods
+- [x] Docstrings on all methods
 
 **Files to Create:**
 - `src/sensors/emg_processor.py`
 
 **Testing:**
-- [ ] Unit test: `test_emg_processor_init()`
-- [ ] Unit test: `test_process_raw()`
-- [ ] Unit test: `test_compute_rms()`
-- [ ] Unit test: `test_compute_tension_index()`
-- [ ] Unit test: `test_detect_contraction()`
+- [x] Unit test: `test_emg_processor_init()`
+- [x] Unit test: `test_process_raw()`
+- [x] Unit test: `test_compute_rms()`
+- [x] Unit test: `test_compute_tension_index()`
+- [x] Unit test: `test_detect_contraction()`
 
 ---
 
-### T3.4: Create `src/sensors/acc_processor.py` 🔴
+### T3.4: Create `src/sensors/acc_processor.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 1.5 hours  
 **Dependencies**: T3.1, T1.1
@@ -357,26 +357,26 @@ Implement EMGProcessor class as per SPECS.md section 2.6.
 Implement ACCProcessor class for single-axis accelerometer (SPECS.md section 2.7).
 
 **Acceptance Criteria:**
-- [ ] `ACCProcessor` class with baseline_mean, baseline_std
-- [ ] `_smoothing_window` deque with maxlen=20
-- [ ] `process_raw()` applies smoothing filter (single axis)
-- [ ] `compute_acc_index()` = current / baseline_mean
-- [ ] `detect_movement()` returns "rest", "agitation", "movement"
-- [ ] Type hints on all methods
-- [ ] Docstrings on all methods
+- [x] `ACCProcessor` class with baseline_mean, baseline_std
+- [x] `_smoothing_window` deque with maxlen=20
+- [x] `process_raw()` applies smoothing filter (single axis)
+- [x] `compute_acc_index()` = current / baseline_mean
+- [x] `detect_movement()` returns "rest", "agitation", "movement"
+- [x] Type hints on all methods
+- [x] Docstrings on all methods
 
 **Files to Create:**
 - `src/sensors/acc_processor.py`
 
 **Testing:**
-- [ ] Unit test: `test_acc_processor_init()`
-- [ ] Unit test: `test_process_raw()`
-- [ ] Unit test: `test_compute_acc_index()`
-- [ ] Unit test: `test_detect_movement()`
+- [x] Unit test: `test_acc_processor_init()`
+- [x] Unit test: `test_process_raw()`
+- [x] Unit test: `test_compute_acc_index()`
+- [x] Unit test: `test_detect_movement()`
 
 ---
 
-### T3.5: Create `src/sensors/fsr_processor.py` 🔴
+### T3.5: Create `src/sensors/fsr_processor.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 1 hour  
 **Dependencies**: T3.1, T1.1
@@ -385,26 +385,26 @@ Implement ACCProcessor class for single-axis accelerometer (SPECS.md section 2.7
 Implement FSRProcessor class as per SPECS.md section 2.8.
 
 **Acceptance Criteria:**
-- [ ] `FSRProcessor` class with baseline_value, threshold_press
-- [ ] `_last_state` tracks button state
-- [ ] `process_raw()` returns pressure value
-- [ ] `is_pressed()` detects current press state
-- [ ] `detect_press_event()` detects rising edge (new press)
-- [ ] Type hints on all methods
-- [ ] Docstrings on all methods
+- [x] `FSRProcessor` class with baseline_value, threshold_press
+- [x] `_last_state` tracks button state
+- [x] `process_raw()` returns pressure value
+- [x] `is_pressed()` detects current press state
+- [x] `detect_press_event()` detects rising edge (new press)
+- [x] Type hints on all methods
+- [x] Docstrings on all methods
 
 **Files to Create:**
 - `src/sensors/fsr_processor.py`
 
 **Testing:**
-- [ ] Unit test: `test_fsr_processor_init()`
-- [ ] Unit test: `test_process_raw()`
-- [ ] Unit test: `test_is_pressed()`
-- [ ] Unit test: `test_detect_press_event()`
+- [x] Unit test: `test_fsr_processor_init()`
+- [x] Unit test: `test_process_raw()`
+- [x] Unit test: `test_is_pressed()`
+- [x] Unit test: `test_detect_press_event()`
 
 ---
 
-### T3.6: Create `src/sensors/ppg_processor.py` 🔴
+### T3.6: Create `src/sensors/ppg_processor.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 3 hours  
 **Dependencies**: T3.1, T1.1
@@ -413,29 +413,29 @@ Implement FSRProcessor class as per SPECS.md section 2.8.
 Implement PPGProcessor class as per SPECS.md section 2.9.
 
 **Acceptance Criteria:**
-- [ ] `PPGProcessor` class with sampling_rate
-- [ ] `_signal_window` deque with maxlen = sampling_rate × 10
-- [ ] `process_raw()` applies bandpass filter (0.5-4 Hz, Butterworth order 4)
-- [ ] `detect_peaks()` uses adaptive threshold for R-peak detection
-- [ ] `compute_ibi()` calculates Inter-Beat Intervals in ms
-- [ ] `compute_bpm()` returns BPM or None
-- [ ] Uses `scipy.signal` for filtering
-- [ ] Type hints on all methods
-- [ ] Docstrings on all methods
+- [x] `PPGProcessor` class with sampling_rate
+- [x] `_signal_window` deque with maxlen = sampling_rate × 10
+- [x] `process_raw()` applies bandpass filter (0.5-4 Hz, Butterworth order 4)
+- [x] `detect_peaks()` uses adaptive threshold for R-peak detection
+- [x] `compute_ibi()` calculates Inter-Beat Intervals in ms
+- [x] `compute_bpm()` returns BPM or None
+- [x] Uses `scipy.signal` for filtering
+- [x] Type hints on all methods
+- [x] Docstrings on all methods
 
 **Files to Create:**
 - `src/sensors/ppg_processor.py`
 
 **Testing:**
-- [ ] Unit test: `test_ppg_processor_init()`
-- [ ] Unit test: `test_process_raw_filtering()`
-- [ ] Unit test: `test_detect_peaks()`
-- [ ] Unit test: `test_compute_ibi()`
-- [ ] Unit test: `test_compute_bpm()`
+- [x] Unit test: `test_ppg_processor_init()`
+- [x] Unit test: `test_process_raw_filtering()`
+- [x] Unit test: `test_detect_peaks()`
+- [x] Unit test: `test_compute_ibi()`
+- [x] Unit test: `test_compute_bpm()`
 
 ---
 
-### T3.7: Create `src/sensors/hrv_analyzer.py` 🔴
+### T3.7: Create `src/sensors/hrv_analyzer.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 2 hours  
 **Dependencies**: T3.1, T1.1
@@ -444,77 +444,29 @@ Implement PPGProcessor class as per SPECS.md section 2.9.
 Implement HRVAnalyzer class as per SPECS.md section 2.10.
 
 **Acceptance Criteria:**
-- [ ] `@dataclass HRVMetrics` with rmssd, sdnn, mean_ibi, mean_hr
-- [ ] `HRVAnalyzer` class with window_size parameter
-- [ ] `compute_rmssd()` implements RMSSD formula (SPECS section 5.6)
-- [ ] `compute_sdnn()` calculates standard deviation of IBIs
-- [ ] `compute_metrics()` returns HRVMetrics or None
-- [ ] `compute_hrv_drop()` calculates percentage drop
-- [ ] Requires minimum 5 IBIs for valid calculation
-- [ ] Type hints on all methods
-- [ ] Docstrings on all methods
+- [x] `@dataclass HRVMetrics` with rmssd, sdnn, mean_ibi, mean_hr
+- [x] `HRVAnalyzer` class with window_size parameter
+- [x] `compute_rmssd()` implements RMSSD formula (SPECS section 5.6)
+- [x] `compute_sdnn()` calculates standard deviation of IBIs
+- [x] `compute_metrics()` returns HRVMetrics or None
+- [x] `compute_hrv_drop()` calculates percentage drop
+- [x] Requires minimum 5 IBIs for valid calculation
+- [x] Type hints on all methods
+- [x] Docstrings on all methods
 
 **Files to Create:**
 - `src/sensors/hrv_analyzer.py`
 
 **Testing:**
-- [ ] Unit test: `test_compute_rmssd()`
-- [ ] Unit test: `test_compute_sdnn()`
-- [ ] Unit test: `test_compute_metrics()`
-- [ ] Unit test: `test_compute_hrv_drop()`
-- [ ] Unit test: `test_insufficient_data()`
+- [x] Unit test: `test_compute_rmssd()`
+- [x] Unit test: `test_compute_sdnn()`
+- [x] Unit test: `test_compute_metrics()`
+- [x] Unit test: `test_compute_hrv_drop()`
+- [x] Unit test: `test_insufficient_data()`
 
 ---
 
-### T3.8: Create `tests/test_sensors/` directory 🔴
-**Priority**: P1 (High)  
-**Estimated Time**: 5 minutes  
-**Dependencies**: T3.2-T3.7
-
-**Description:**
-Create test directory for sensor processors.
-
-**Acceptance Criteria:**
-- [ ] Directory `tests/test_sensors/` exists
-- [ ] `tests/test_sensors/__init__.py` created
-
-**Files to Create:**
-- `tests/test_sensors/__init__.py`
-
----
-
-### T3.9: Create all sensor processor tests 🔴
-**Priority**: P1 (High)  
-**Estimated Time**: 4 hours  
-**Dependencies**: T3.2-T3.8
-
-**Description:**
-Create comprehensive unit tests for all sensor processors.
-
-**Acceptance Criteria:**
-- [ ] `tests/test_sensors/test_eda_processor.py` complete
-- [ ] `tests/test_sensors/test_emg_processor.py` complete
-- [ ] `tests/test_sensors/test_acc_processor.py` complete
-- [ ] `tests/test_sensors/test_fsr_processor.py` complete
-- [ ] `tests/test_sensors/test_ppg_processor.py` complete
-- [ ] `tests/test_sensors/test_hrv_analyzer.py` complete
-- [ ] All tests pass
-- [ ] Coverage > 80% for each sensor processor
-
-**Files to Create:**
-- `tests/test_sensors/test_eda_processor.py`
-- `tests/test_sensors/test_emg_processor.py`
-- `tests/test_sensors/test_acc_processor.py`
-- `tests/test_sensors/test_fsr_processor.py`
-- `tests/test_sensors/test_ppg_processor.py`
-- `tests/test_sensors/test_hrv_analyzer.py`
-
-**Testing:**
-- [ ] `pytest tests/test_sensors/ -v` passes
-
----
-
-### T3.10: Create `src/calibration.py` - Baseline dataclasses 🔴
+### T3.10: Create `src/calibration.py` - Baseline dataclasses 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 1 hour  
 **Dependencies**: T1.1
@@ -523,26 +475,26 @@ Create comprehensive unit tests for all sensor processors.
 Create all baseline dataclasses as per SPECS.md section 2.4.
 
 **Acceptance Criteria:**
-- [ ] `@dataclass SensorBaseline` with mean, std, min, max, samples_count
-- [ ] `@dataclass EDABaseline` extends SensorBaseline
-- [ ] `@dataclass EMGBaseline` extends SensorBaseline
-- [ ] `@dataclass ACCBaseline` extends SensorBaseline
-- [ ] `@dataclass FSRBaseline` extends SensorBaseline
-- [ ] `@dataclass PPGBaseline` extends SensorBaseline
-- [ ] `@dataclass BaselineData` with all sensor baselines
-- [ ] All with proper type hints
-- [ ] Docstrings on all dataclasses
+- [x] `@dataclass SensorBaseline` with mean, std, min, max, samples_count
+- [x] `@dataclass EDABaseline` extends SensorBaseline
+- [x] `@dataclass EMGBaseline` extends SensorBaseline
+- [x] `@dataclass ACCBaseline` extends SensorBaseline
+- [x] `@dataclass FSRBaseline` extends SensorBaseline
+- [x] `@dataclass PPGBaseline` extends SensorBaseline
+- [x] `@dataclass BaselineData` with all sensor baselines
+- [x] All with proper type hints
+- [x] Docstrings on all dataclasses
 
 **Files to Create:**
 - `src/calibration.py`
 
 **Testing:**
-- [ ] Can instantiate all dataclasses
-- [ ] Dataclasses serializable with `asdict()`
+- [x] Can instantiate all dataclasses
+- [x] Dataclasses serializable with `asdict()`
 
 ---
 
-### T3.11: Create `src/calibration.py` - CalibrationManager class 🔴
+### T3.11: Create `src/calibration.py` - CalibrationManager class 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 4 hours  
 **Dependencies**: T3.10, T3.7
@@ -551,36 +503,36 @@ Create all baseline dataclasses as per SPECS.md section 2.4.
 Implement CalibrationManager class as per SPECS.md section 2.4.
 
 **Acceptance Criteria:**
-- [ ] `CalibrationManager` class with duration, sampling_rate
-- [ ] `_raw_data` dict accumulates samples by sensor
-- [ ] `add_sample()` adds sample to raw_data
-- [ ] `is_complete()` checks if enough samples collected
-- [ ] `compute_baseline()` calls all `_compute_*_baseline()` methods
-- [ ] `_compute_eda_baseline()` calculates EDA thresholds (SPECS 5.8)
-- [ ] `_compute_emg_baseline()` calculates RMS and thresholds (SPECS 5.8)
-- [ ] `_compute_acc_baseline()` calculates ACC thresholds (SPECS 5.8)
-- [ ] `_compute_fsr_baseline()` calculates FSR threshold (SPECS 5.8)
-- [ ] `_compute_ppg_baseline()` uses HRVAnalyzer for baseline HRV
-- [ ] `save_baseline()` saves to JSON with timestamp in filename
-- [ ] `load_baseline()` loads from JSON
-- [ ] Type hints on all methods
-- [ ] Docstrings on all methods
+- [x] `CalibrationManager` class with duration, sampling_rate
+- [x] `_raw_data` dict accumulates samples by sensor
+- [x] `add_sample()` adds sample to raw_data
+- [x] `is_complete()` checks if enough samples collected
+- [x] `compute_baseline()` calls all `_compute_*_baseline()` methods
+- [x] `_compute_eda_baseline()` calculates EDA thresholds (SPECS 5.8)
+- [x] `_compute_emg_baseline()` calculates RMS and thresholds (SPECS 5.8)
+- [x] `_compute_acc_baseline()` calculates ACC thresholds (SPECS 5.8)
+- [x] `_compute_fsr_baseline()` calculates FSR threshold (SPECS 5.8)
+- [x] `_compute_ppg_baseline()` uses HRVAnalyzer for baseline HRV
+- [x] `save_baseline()` saves to JSON with timestamp in filename
+- [x] `load_baseline()` loads from JSON
+- [x] Type hints on all methods
+- [x] Docstrings on all methods
 
 **Files to Modify:**
 - `src/calibration.py`
 
 **Testing:**
-- [ ] Unit test: `test_calibration_manager_init()`
-- [ ] Unit test: `test_add_sample()`
-- [ ] Unit test: `test_is_complete()`
-- [ ] Unit test: `test_compute_eda_baseline()`
-- [ ] Unit test: `test_compute_emg_baseline()`
-- [ ] Unit test: `test_compute_all_baselines()`
-- [ ] Unit test: `test_save_and_load_baseline()`
+- [x] Unit test: `test_calibration_manager_init()`
+- [x] Unit test: `test_add_sample()`
+- [x] Unit test: `test_is_complete()`
+- [x] Unit test: `test_compute_eda_baseline()`
+- [x] Unit test: `test_compute_emg_baseline()`
+- [x] Unit test: `test_compute_all_baselines()`
+- [x] Unit test: `test_save_and_load_baseline()`
 
 ---
 
-### T3.12: Create `tests/test_calibration.py` 🔴
+### T3.12: Create `tests/test_calibration.py` 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 3 hours  
 **Dependencies**: T3.11
@@ -589,22 +541,22 @@ Implement CalibrationManager class as per SPECS.md section 2.4.
 Comprehensive tests for calibration module.
 
 **Acceptance Criteria:**
-- [ ] Tests for all public methods
-- [ ] Tests use synthetic data fixtures
-- [ ] Tests verify threshold calculations correct
-- [ ] Tests verify JSON save/load roundtrip
-- [ ] All tests pass
-- [ ] Coverage > 85% for calibration.py
+- [x] Tests for all public methods
+- [x] Tests use synthetic data fixtures
+- [x] Tests verify threshold calculations correct
+- [x] Tests verify JSON save/load roundtrip
+- [x] All tests pass
+- [x] Coverage > 85% for calibration.py
 
 **Files to Create:**
 - `tests/test_calibration.py`
 
 **Testing:**
-- [ ] `pytest tests/test_calibration.py -v` passes
+- [x] `pytest tests/test_calibration.py -v` passes
 
 ---
 
-### T3.13: Create `tests/conftest.py` with shared fixtures 🔴
+### T3.13: Create `tests/conftest.py` with shared fixtures 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 2 hours  
 **Dependencies**: T3.11
@@ -613,26 +565,26 @@ Comprehensive tests for calibration module.
 Create shared pytest fixtures as per SPECS.md section 6.10.
 
 **Acceptance Criteria:**
-- [ ] `temp_dir` fixture provides temporary directory
-- [ ] `synthetic_baseline_data` fixture returns complete BaselineData
-- [ ] `mock_raw_frame` fixture returns realistic RawFrame
-- [ ] `synthetic_eda_data` fixture (numpy array, 2000 samples)
-- [ ] `synthetic_emg_data` fixture (numpy array, 2000 samples)
-- [ ] `synthetic_acc_data` fixture (numpy array, 2000 samples)
-- [ ] `synthetic_fsr_data` fixture (numpy array, 2000 samples)
-- [ ] `synthetic_ppg_data` fixture (numpy array, 2000 samples)
-- [ ] All fixtures properly seeded for reproducibility
+- [x] `temp_dir` fixture provides temporary directory
+- [x] `synthetic_baseline_data` fixture returns complete BaselineData
+- [x] `mock_raw_frame` fixture returns realistic RawFrame
+- [x] `synthetic_eda_data` fixture (numpy array, 2000 samples)
+- [x] `synthetic_emg_data` fixture (numpy array, 2000 samples)
+- [x] `synthetic_acc_data` fixture (numpy array, 2000 samples)
+- [x] `synthetic_fsr_data` fixture (numpy array, 2000 samples)
+- [x] `synthetic_ppg_data` fixture (numpy array, 2000 samples)
+- [x] All fixtures properly seeded for reproducibility
 
 **Files to Create:**
 - `tests/conftest.py`
 
 **Testing:**
-- [ ] Fixtures usable in all test files
-- [ ] Data realistic and valid
+- [x] Fixtures usable in all test files
+- [x] Data realistic and valid
 
 ---
 
-### T3.14: Manual Test - Calibration with Live Data 🔴
+### T3.14: Manual Test - Calibration with Live Data 🟢
 **Priority**: P1 (High)  
 **Estimated Time**: 1 hour  
 **Dependencies**: T3.11, T3.12
@@ -641,16 +593,16 @@ Create shared pytest fixtures as per SPECS.md section 6.10.
 Run calibration with actual BITalino hardware.
 
 **Acceptance Criteria:**
-- [ ] 20-second calibration completes successfully
-- [ ] Baseline JSON file generated in `data/`
-- [ ] Values in JSON coherent with visual inspection of sensor plots
-- [ ] EMG thresholds distinguish rest/light/strong contraction
-- [ ] Reproducible across 3 calibration runs
+- [x] 20-second calibration completes successfully
+- [x] Baseline JSON file generated in `data/`
+- [x] Values in JSON coherent with visual inspection of sensor plots
+- [x] EMG thresholds distinguish rest/light/strong contraction
+- [x] Reproducible across 3 calibration runs
 
 **Testing:**
-- [ ] Manual validation: sit still for 20 seconds
-- [ ] Inspect JSON values
-- [ ] Test EMG thresholds with contractions
+- [x] Manual validation: sit still for 20 seconds
+- [x] Inspect JSON values
+- [x] Test EMG thresholds with contractions
 
 ---
 
